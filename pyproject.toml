@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "cvproject"
+version = "0.1.0"
+description = "Django project for CV management"
+authors = ["Elmar Aliyev <elmaraliyevdev@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "CVProject"}]
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+django = "^5.1.7"
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+pytest = "^8.3.5"
+flake8 = "^7.1.2"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
