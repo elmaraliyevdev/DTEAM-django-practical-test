@@ -11,6 +11,7 @@ packages = [{include = "CVProject"}]
 python = ">=3.11"
 django = "^5.1.7"
 weasyprint = "^64.1"
+djangorestframework = "^3.15.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"

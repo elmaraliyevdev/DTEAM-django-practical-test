@@ -20,6 +20,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from .models import CV
+from .serializers import CVSerializer
+from rest_framework import viewsets
 
 def home(request):
     cvs = CV.objects.all()
@@ -38,3 +40,8 @@ def generate_pdf(request, cv_id):
     response = HttpResponse(pdf_file, content_type="application/pdf")
     response["Content-Disposition"] = f'attachment; filename="{cv.firstname}_{cv.lastname}.pdf"'
     return response
+
+
+class CVViewSet(viewsets.ModelViewSet):
+    queryset = CV.objects.all()
+    serializer_class = CVSerializer
