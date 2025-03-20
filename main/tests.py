@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-from .models import CV
+from .models import CV, RequestLog
 
 class CVTestCase(TestCase):
     def setUp(self):
@@ -64,3 +64,14 @@ class CVTestCase(TestCase):
         response = self.client.get(reverse("cv_download", args=[self.cv.id]))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/pdf")
+
+
+class RequestLoggingMiddlewareTestCase(TestCase):
+    def test_logging_middleware(self):
+        response = self.client.get(reverse("home"))
+        self.assertEqual(response.status_code, 200)
+        
+        log_entry = RequestLog.objects.first()
+        self.assertIsNotNone(log_entry)
+        self.assertEqual(log_entry.http_method, "GET")
+        self.assertEqual(log_entry.path, "/")

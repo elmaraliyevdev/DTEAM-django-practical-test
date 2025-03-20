@@ -19,7 +19,7 @@ except OSError:
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from .models import CV
+from .models import CV, RequestLog
 from .serializers import CVSerializer
 from rest_framework import viewsets
 
@@ -45,3 +45,8 @@ def generate_pdf(request, cv_id):
 class CVViewSet(viewsets.ModelViewSet):
     queryset = CV.objects.all()
     serializer_class = CVSerializer
+
+
+def logs(request):
+    logs = RequestLog.objects.order_by("-timestamp")[:10]  # Get the last 10 requests
+    return render(request, "main/logs.html", {"logs": logs})
