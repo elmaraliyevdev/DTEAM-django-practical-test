@@ -75,3 +75,11 @@ class RequestLoggingMiddlewareTestCase(TestCase):
         self.assertIsNotNone(log_entry)
         self.assertEqual(log_entry.http_method, "GET")
         self.assertEqual(log_entry.path, "/")
+
+
+class SettingsViewTestCase(TestCase):
+    def test_settings_view(self):
+        response = self.client.get(reverse("settings"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Django Settings")
+        self.assertContains(response, "DEBUG")

@@ -41,6 +41,10 @@ def generate_pdf(request, cv_id):
     response["Content-Disposition"] = f'attachment; filename="{cv.firstname}_{cv.lastname}.pdf"'
     return response
 
+def settings_view(request):
+    """Displays selected Django settings in a template."""
+    return render(request, "main/settings.html")
+
 
 class CVViewSet(viewsets.ModelViewSet):
     queryset = CV.objects.all()
