@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ cv.firstname }} {{ cv.lastname }}</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #333; }
+        p { margin: 5px 0; }
+    </style>
 </head>
 <body>
     <h1>{{ cv.firstname }} {{ cv.lastname }}</h1>
@@ -9,9 +14,5 @@
     <p><strong>Projects:</strong> {{ cv.projects }}</p>
     <p><strong>Bio:</strong> {{ cv.bio }}</p>
     <p><strong>Contacts:</strong> {{ cv.contacts }}</p>
-    <a href="{% url 'home' %}">Back to list</a>
-    <a href="{% url 'cv_download' cv.id %}" download>
-        <button>Download PDF</button>
-    </a>
 </body>
 </html>
