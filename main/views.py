@@ -16,10 +16,12 @@ except OSError:
                 return b'%PDF-1.4\nMock PDF Content'
     
     weasyprint = MockWeasyPrint
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from .models import CV, RequestLog
+from django.contrib import messages
+from .tasks import send_cv_pdf
 from .serializers import CVSerializer
 from rest_framework import viewsets
 
@@ -44,6 +46,16 @@ def generate_pdf(request, cv_id):
 def settings_view(request):
     """Displays selected Django settings in a template."""
     return render(request, "main/settings.html")
+
+
+def send_cv_email(request, cv_id):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        send_cv_pdf.delay(email, cv_id)  # Run Celery task asynchronously
+        messages.success(request, "CV is being sent to your email.")
+        return redirect("cv_detail", cv_id=cv_id)
+
+    return render(request, "main/send_email.html", {"cv_id": cv_id})
 
 
 class CVViewSet(viewsets.ModelViewSet):
