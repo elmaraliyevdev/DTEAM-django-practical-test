@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recent Logs</title>
+</head>
+<body>
+    <h1>Recent Requests</h1>
+    <table border="1">
+        <tr>
+            <th>Timestamp</th>
+            <th>Method</th>
+            <th>Path</th>
+            <th>Query String</th>
+            <th>Remote IP</th>
+            <th>User</th>
+        </tr>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.timestamp }}</td>
+            <td>{{ log.http_method }}</td>
+            <td>{{ log.path }}</td>
+            <td>{{ log.query_string }}</td>
+            <td>{{ log.remote_ip }}</td>
+            <td>{{ log.user }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

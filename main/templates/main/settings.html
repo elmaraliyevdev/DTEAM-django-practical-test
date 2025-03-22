@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings</title>
+</head>
+<body>
+    <h1>Django Settings</h1>
+    <table border="1">
+        <tr>
+            <th>Setting</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>DEBUG</td>
+            <td>{{ settings.DEBUG }}</td>
+        </tr>
+        <tr>
+            <td>DATABASE NAME</td>
+            <td>{{ settings.DATABASES.default.NAME }}</td>
+        </tr>
+        <tr>
+            <td>Allowed Hosts</td>
+            <td>{{ settings.ALLOWED_HOSTS }}</td>
+        </tr>
+    </table>
+</body>
+</html>
