@@ -83,3 +83,21 @@ class SettingsViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Django Settings")
         self.assertContains(response, "DEBUG")
+
+
+class CareerAdviceTestCase(TestCase):
+    def setUp(self):
+        self.cv = CV.objects.create(
+            firstname="Alice",
+            lastname="Smith",
+            skills="Django, Python",
+            projects="E-commerce website",
+            bio="Experienced software developer",
+            contacts="Email: alice@example.com"
+        )
+        self.api_url = reverse("career_advice", args=[self.cv.id])
+
+    def test_career_advice(self):
+        response = self.client.post(self.api_url, {"question": "How do I get a job at Google?"}, content_type="application/json")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("response", response.json())
